@@ -1,0 +1,14 @@
+# docker-compose.yml  (future use)
+# docker compose up -d
+
+# version: "3.9"
+
+services:
+  scheduler-bot:
+    # build: .
+    image: scheduler-bot:latest
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/app/data   # persist JSON + rendered images
+      - /etc/localtime:/etc/localtime:ro

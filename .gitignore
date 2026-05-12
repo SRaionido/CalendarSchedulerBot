@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.json
+.venv/
+venv/
+env/
+bin/
+lib/
+include/
+development/
+data/
