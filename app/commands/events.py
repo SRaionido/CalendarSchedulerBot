@@ -9,6 +9,8 @@ Commands:
 
 import uuid
 from datetime import date as date_cls, datetime
+# Import timezone utilities
+from datetime import timezone, timedelta
 from urllib.parse import urlencode
 
 import discord
@@ -110,7 +112,13 @@ class EventsCog(commands.Cog):
                 "❌ Invalid date. Use `YYYY-MM-DD`, e.g. `2025-07-04`."
             )
             return
-        if date_str < date_cls.today().isoformat():
+        
+        # FIX: Calculate "today" based on Pacific Time (UTC-7 for Daylight Savings)
+        # Or change the offset to match your target audience's timezone
+        pacific_offset = timezone(timedelta(hours=-7)) 
+        today_local = datetime.now(pacific_offset).date().isoformat()
+
+        if date_str < today_local:
             await interaction.followup.send(
                 "❌ Event date must be today or in the future."
             )
